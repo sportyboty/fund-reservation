@@ -1,0 +1,26 @@
+RewriteEngine on
+ErrorDocument 404 /merrypayout/404.php
+
+# Rewrite /foo/bar to /foo/bar.php
+RewriteRule ^([^.?]+)$ %{REQUEST_URI}.php [L]
+
+# Return 404 if original request is /foo/bar.php
+RewriteCond %{THE_REQUEST} "^[^ ]* .*?\.php[? ].*$"
+RewriteRule .* - [L,R=404]
+
+# NOTE! FOR APACHE ON WINDOWS: Add [NC] to RewriteCond like this:
+# RewriteCond %{THE_REQUEST} "^[^ ]* .*?\.php[? ].*$" [NC]
+
+
+
+#RewriteCond %{HTTPS} off
+## First rewrite to HTTPS:
+## Don't put www. here. If it is already there it will be included, if not
+## the subsequent rule will catch it.
+#RewriteRule .* https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+## Now, rewrite any request to the wrong domain to use www.
+## [NC] is a case-insensitive match
+#RewriteCond %{HTTP_HOST} !^www\. [NC]
+#RewriteRule .* https://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+#Options -Indexes
+

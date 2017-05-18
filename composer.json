@@ -1,0 +1,11 @@
+{
+  "autoload": {
+    "psr-4": {
+      "MerryPayout\\" : "classes"
+
+    }
+  },
+  "require": {
+    "phpmailer/phpmailer": "^5.2"
+  }
+}
